@@ -352,6 +352,15 @@ function toggleMenu(){
   if(l.style.display==='flex'){l.style.display='none'}
   else{l.style.cssText='display:flex;flex-direction:column;position:absolute;top:76px;left:0;right:0;background:#fff;padding:16px 24px 24px;box-shadow:0 8px 32px rgba(0,0,0,.12);z-index:999;border-top:2px solid #1A3E8C'}
 }
+
+(function(){
+  var items=document.querySelectorAll('.nav-item');
+  items.forEach(function(item){
+    var timer;
+    item.addEventListener('mouseenter',function(){clearTimeout(timer);item.classList.add('open');});
+    item.addEventListener('mouseleave',function(){timer=setTimeout(function(){item.classList.remove('open');},80);});
+  });
+})();
 </script>
 </body>
 </html>

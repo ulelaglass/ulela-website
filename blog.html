@@ -379,6 +379,15 @@ tabs.forEach(tab=>{
     }
   });
 });
+
+(function(){
+  var items=document.querySelectorAll('.nav-item');
+  items.forEach(function(item){
+    var timer;
+    item.addEventListener('mouseenter',function(){clearTimeout(timer);item.classList.add('open');});
+    item.addEventListener('mouseleave',function(){timer=setTimeout(function(){item.classList.remove('open');},80);});
+  });
+})();
 </script>
 </body>
 </html>

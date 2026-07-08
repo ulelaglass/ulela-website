@@ -135,9 +135,9 @@ footer{background:#0d2147;border-top:4px solid #fff;padding:64px 0 0;color:rgba(
 .nav-item{position:relative;display:inline-flex;align-items:center}
 .nav-item>a{display:flex;align-items:center;gap:4px}
 .nav-item>a::after{content:'';width:0;height:0;border-left:4px solid transparent;border-right:4px solid transparent;border-top:5px solid var(--gray);transition:var(--tr);flex-shrink:0}
-.nav-item:hover>a::after{border-top-color:var(--navy);transform:rotate(180deg)}
-.nav-dropdown{display:none;position:absolute;top:calc(100% + 8px);left:50%;transform:translateX(-50%);background:#fff;border:1px solid var(--gray-lt);border-radius:var(--rl);box-shadow:var(--sh-lg);min-width:240px;z-index:9999;padding:8px 0;overflow:hidden}
-.nav-item:hover .nav-dropdown{display:block}
+.nav-item.open>a::after{border-top-color:var(--navy);transform:rotate(180deg)}
+.nav-dropdown{display:none;position:absolute;top:100%;padding-top:8px;left:50%;transform:translateX(-50%);background:#fff;border:1px solid var(--gray-lt);border-radius:var(--rl);box-shadow:var(--sh-lg);min-width:240px;z-index:9999;padding:8px 0;overflow:hidden}
+.nav-item.open .nav-dropdown{display:block}
 .nav-dropdown a{display:flex;align-items:center;gap:10px;padding:10px 16px;font-size:13px;font-weight:500;color:var(--text-lt);transition:var(--tr);white-space:nowrap}
 .nav-dropdown a:hover{background:var(--sky);color:var(--navy);padding-left:20px}
 .nav-dropdown a svg{width:16px;height:16px;fill:var(--blue);flex-shrink:0}
@@ -392,6 +392,15 @@ document.getElementById('yr').textContent = new Date().getFullYear();
 function toggleMenu(){const l=document.getElementById('navLinks');l.style.display=l.style.display==='flex'?'none':'flex';if(l.style.display==='flex')l.style.cssText='display:flex;flex-direction:column;position:absolute;top:64px;left:0;right:0;background:#fff;padding:16px 24px 24px;box-shadow:0 8px 32px rgba(0,0,0,.12);z-index:999;border-top:2px solid #1A3E8C';}
 const fadeObs=new IntersectionObserver((entries)=>{entries.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('visible'),i*60);fadeObs.unobserve(e.target);}});},{threshold:0.08});
 document.querySelectorAll('.fade-up').forEach(el=>fadeObs.observe(el));
+
+(function(){
+  var items=document.querySelectorAll('.nav-item');
+  items.forEach(function(item){
+    var timer;
+    item.addEventListener('mouseenter',function(){clearTimeout(timer);item.classList.add('open');});
+    item.addEventListener('mouseleave',function(){timer=setTimeout(function(){item.classList.remove('open');},80);});
+  });
+})();
 </script>
 </body>
 </html>
